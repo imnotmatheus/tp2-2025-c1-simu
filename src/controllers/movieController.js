@@ -4,7 +4,10 @@ export const getAllMovies = async (req, res) => {
     try {
         const page = req.query.page ? parseInt(req.query.page) : undefined;
         const pageSize = req.query.pageSize ? parseInt(req.query.pageSize) : undefined;
-        const movies = await getMovies(page, pageSize);
+        const awarded = req.query.awarded ? (/true/i).test(req.query.awarded) : undefined;
+        const language = req.query.language ? req.query.language : undefined;
+        const tomatoes = req.query.tomatoes ? (/true/i).test(req.query.tomatoes) : undefined
+        const movies = await getMovies(page, pageSize, awarded, language, tomatoes);
         res.json(movies);
     } catch (error) {
         console.log("Error fetching movies: ", error);
